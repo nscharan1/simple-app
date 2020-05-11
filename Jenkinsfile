@@ -21,7 +21,7 @@ pipeline{
 		stage('Artifact upload'){
 			steps{
 				echo 'Artifact Upload stage'
-				bash "nexusArtifactUploader artifacts: [[artifactId: 'simple-app', classifier: '', file: '${WORKSPACE}/target/simple-app-1.0.war', type: 'war']], credentialsId: 'nexus2', groupId: 'in.javahome', nexusUrl: '3.95.149.40:8081/nexus', nexusVersion: 'nexus2', protocol: 'http', repository: 'Releases', version: '1.0'"
+				sh "nexusArtifactUploader artifacts: [[artifactId: 'simple-app', classifier: '', file: '${WORKSPACE}/target/simple-app-1.0.war', type: 'war']], credentialsId: 'nexus2', groupId: 'in.javahome', nexusUrl: '3.95.149.40:8081/nexus', nexusVersion: 'nexus2', protocol: 'http', repository: 'Releases', version: '1.0'"
 			}
 		}
 		stage('Deploy'){
