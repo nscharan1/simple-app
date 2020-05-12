@@ -17,15 +17,16 @@ pipeline{
         }
 
 
-        stage('Sonarqube analysis') {
+        stage('SonarQube analysis') {
             steps {
                 script {
-                scannerHome = tool 'sonar7';
+                    // requires SonarQube Scanner 2.8+
+                    scannerHome = tool 'SonarQube Scanner 4.3.0.2102'
                 }
-                withSonarQubeEnv('SONAR9') {
-                bat "${scannerHome}/bin/sonar-scanner.bat" 
+                withSonarQubeEnv('SonarQube Scanner') {
+                    sh "${scannerHome}/bin/sonar-scanner"
                 }
-                }
+            }
         }
 
 
