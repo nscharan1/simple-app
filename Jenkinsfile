@@ -21,7 +21,7 @@ pipeline{
             steps {
                 script {
                     // requires SonarQube Scanner 2.8+
-                    scannerHome = tool 'formacsonar'
+                    scannerHome = tool 'sonar7'
                 }
                 withSonarQubeEnv('formacsonar') {
                     sh "${scannerHome}/bin/sonar-scanner"
