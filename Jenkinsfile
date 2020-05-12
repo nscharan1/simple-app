@@ -16,17 +16,10 @@ pipeline{
 
 
 		stage('Sonarqube Analysis') {
-    		environment {
-        	scannerHome = tool 'sonar7'
-    		}
-    		steps {
-        		withSonarQubeEnv('SONAR9') {
-            	sh "${scannerHome}/bin/sonar-scanner"
-        		}
-        		timeout(time: 10, unit: 'MINUTES') {
-           		waitForQualityGate abortPipeline: true
-        		}
-   			}
+    			def mvnHome = tool name:'MVN_HOME', type: 'maven'
+			withSonarQubeEnv('SONAR9'){
+			sh "${mvnHome}/bin/mvn sonar:sonar"	
+			}
 		}
 
 
