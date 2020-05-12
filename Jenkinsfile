@@ -25,7 +25,21 @@ pipeline{
             }
         }
         
-         
+        
+        stage('Sonarqube') {
+            environment {
+            scannerHome = tool 'SonarQubeScanner'
+            }
+            steps {
+                withSonarQubeEnv('SonarQubeServer') {
+                sh "${scannerHome}/bin/sonar-runner"
+                }
+                timeout(time: 10, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+        
         
         stage('Deploy'){
             steps{
