@@ -17,18 +17,6 @@ pipeline{
         }
 
 
-        stage('SonarQube Analysis') { 
-            steps {
-                echo 'Running SonarQube Analysis...'
-            script {
-                 def scannerHome=tool 'SonarQubeScanner'
-                 withSonarQubeEnv('SonarQubeServer') {
-                 sh "${scannerHome}/bin/sonar-scanner"
-                 }
-            }
-            }
-        }
-
 
         stage('Artifact upload'){
             steps{
@@ -36,6 +24,19 @@ pipeline{
                 nexusArtifactUploader artifacts: [[artifactId: 'simple-app', classifier: '', file: '/var/lib/jenkins/workspace/formac3/target/simple-app-1.0..war', type: 'war']], credentialsId: 'nexus2', groupId: 'in.javahome', nexusUrl: 'ec2-54-227-138-60.compute-1.amazonaws.com:8081/nexus', nexusVersion: 'nexus2', protocol: 'http', repository: 'releases', version: '1.0'
             }
         }
+        
+         stage('SonarQube Analysis') { 
+            steps {
+                echo 'Running SonarQube Analysis...'
+            script {
+                 def scannerHome = tool 'SonarQubeScanner'
+                 withSonarQubeEnv('SonarQubeServer') {
+                 sh "${scannerHome}/bin/sonar-scanner"
+                 }
+            }
+            }
+        }
+        
         stage('Deploy'){
             steps{
                 echo 'Deploy stage'         
