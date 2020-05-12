@@ -17,11 +17,15 @@ pipeline{
         }
 
 
-        stage('SonarQube analysis') {
-            def scannerHome = tool 'sonar7';
-            withSonarQubeEnv('SONAR9') { // If you have configured more than one global server connection, you can specify its name
-            sh "${scannerHome}/bin/sonar-scanner"
-            }
+        stage('Sonarqube analysis') {
+            steps {
+                script {
+                scannerHome = tool 'sonar7';
+                }
+                withSonarQubeEnv('SONAR9') {
+                bat "${scannerHome}/bin/sonar-scanner.bat" 
+                }
+                }
         }
 
 
