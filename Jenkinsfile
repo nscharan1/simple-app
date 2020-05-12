@@ -17,11 +17,10 @@ pipeline{
         }
 
 
-        stage('Sonarqube Analysis') {
-            def mvnHome = tool name:'MVN_HOME', type: 'maven'
-            
-            withSonarQubeEnv('SONAR9'){
-            sh "${mvnHome}/bin/mvn sonar:sonar" 
+        stage('SonarQube analysis') {
+            def scannerHome = tool 'sonar7';
+            withSonarQubeEnv('SONAR9') { // If you have configured more than one global server connection, you can specify its name
+            sh "${scannerHome}/bin/sonar-scanner"
             }
         }
 
