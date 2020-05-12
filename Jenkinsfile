@@ -17,15 +17,19 @@ pipeline{
         }
 
 
-        stage('SonarQube analysis') {
-            steps {
-                script {
-                }
-                withSonarQubeEnv('formacsonar') {
-                    sh "${scannerHome}/bin/sonar-scanner"
-                }
+        stage('Sonarqube') {
+            environment {
+            scannerHome = tool 'SonarQubeScanner'
             }
-        }
+                steps {
+                    withSonarQubeEnv('formacsonar') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                    }
+                    timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                    }
+                }
+         }
 
 
         stage('Artifact upload'){
