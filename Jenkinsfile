@@ -23,7 +23,7 @@ pipeline{
                     // requires SonarQube Scanner 2.8+
                     scannerHome = tool 'formacsonar'
                 }
-                withSonarQubeEnv('sonar7') {
+                withSonarQubeEnv('formacsonar') {
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
