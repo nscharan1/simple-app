@@ -15,7 +15,7 @@ pipeline{
 		}
 		stage('Quality Analysis'){
 			steps{
-				stage('SonarQube analysis') {
+					echo "SonarQube Check
     					def scannerHome = tool 'sonar7';
    					withSonarQubeEnv('Sonarqube') { // If you have configured more than one global server connection, you can specify its name
      					sh "${scannerHome}/bin/sonar-scanner"
