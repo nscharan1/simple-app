@@ -20,8 +20,6 @@ pipeline{
         stage('SonarQube analysis') {
             steps {
                 script {
-                    // requires SonarQube Scanner 2.8+
-                    scannerHome = tool 'sonar7'
                 }
                 withSonarQubeEnv('formacsonar') {
                     sh "${scannerHome}/bin/sonar-scanner"
